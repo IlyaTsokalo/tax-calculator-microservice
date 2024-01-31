@@ -1,0 +1,3 @@
+services:
+  App\Service\Adapter\TaxBeeAdapter: '@App\Service\Mock\MockTaxAdapter'
+  App\Service\Adapter\SeriousTaxAdapter: '@App\Service\Mock\MockTaxAdapter'

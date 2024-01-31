@@ -24,5 +24,26 @@ services:
         resource: '../src/Controller/'
         tags: [ 'controller.service_arguments' ]
 
+    App\ExternalService\SeriousTax\SeriousTaxService: ~
+
+    App\ExternalService\TaxBee\TaxBee: ~
+
+    App\Service\Strategy\TaxBeeCalculatorStrategy:
+        arguments:
+            $taxAdapter: '@App\Service\Adapter\TaxBeeAdapter'
+
+    App\Service\Strategy\SeriousTaxCalculatorStrategy:
+        arguments:
+            $taxAdapter: '@App\Service\Adapter\SeriousTaxAdapter'
+
+    App\Service\Strategy\Selector\TaxCalculatorStrategySelector:
+        arguments:
+            $strategies:
+                - '@App\Service\Strategy\TaxBeeCalculatorStrategy'
+                - '@App\Service\Strategy\SeriousTaxCalculatorStrategy'
+    Predis\Client:
+        arguments:
+            - '%env(REDIS_URL)%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
